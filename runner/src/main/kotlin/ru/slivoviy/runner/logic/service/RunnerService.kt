@@ -42,7 +42,7 @@ class OrchestratorService(
         id = RUNNER_LISTENER_ID,
         idIsGroup = false,
         containerFactory = CONSUMER_FACTORY,
-        topics = ["\${kafka.source-topics.Orchestrator.name}"],
+        topics = ["\${kafka.source-topics.Runner-Orchestrator.name}"],
         concurrency = "1"
     )
     private fun consumeOrchestrator(
@@ -99,7 +99,7 @@ class OrchestratorService(
         id = RUNNER_LISTENER_ID,
         idIsGroup = false,
         containerFactory = CONSUMER_FACTORY,
-        topics = ["\${kafka.source-topics.Inference.name}"],
+        topics = ["\${kafka.source-topics.Runner-Inference.name}"],
         concurrency = "1"
     )
     private fun consumeInference(
@@ -129,7 +129,7 @@ class OrchestratorService(
 
 //        "id status frames_done frames_total"
         kafkaTemplate.send(
-            kafkaProperties.targetTopics["Orchestrator"]!!.name,
+            kafkaProperties.targetTopics["Orchestrator-Runner"]!!.name,
             "$requestId ${request.status} $framesDone $framesTotal"
         )
     }

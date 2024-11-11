@@ -50,7 +50,7 @@ class InferenceService(
         id = INFERENCE_LISTENER_ID,
         idIsGroup = false,
         containerFactory = CONSUMER_FACTORY,
-        topics = ["\${kafka.source-topics.Runner.name}"],
+        topics = ["\${kafka.source-topics.Inference.name}"],
         concurrency = "1"
     )
     private fun consumeRunner(
@@ -69,7 +69,7 @@ class InferenceService(
         val frame = data[3].toByteArray()
 
         kafkaTemplate.send(
-            kafkaProperties.targetTopics["Runner"]!!.name,
+            kafkaProperties.targetTopics["Runner-Inference"]!!.name,
             "${requestId};$framesDone;$framesDone;$framesTotal;${PREDICTIONS.random()}"
         )
 

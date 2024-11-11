@@ -40,7 +40,7 @@ class StreamingController(
 ) {
 
     @PostMapping("api/v1/upload")
-    fun uploadVideo(videoFile: MultipartFile): ResponseEntity<Int> {
+    fun uploadVideo(videoFile: MultipartFile): ResponseEntity<Long> {
         val request = requestsRepository.save(
             Request(
                 framesDone = 0,
@@ -52,15 +52,15 @@ class StreamingController(
         uploadFile(request.id!!, videoFile)
 
         kafkaTemplate.send(
-            kafkaProperties.targetTopics["Orchestrator"]!!.name,
+            kafkaProperties.targetTopics["Orchestrator-Api"]!!.name,
             "${request.id}"
         )
 
-        return ResponseEntity.ok(request.id!!)
+        return ResponseEntity.ok(1)
     }
 
     @GetMapping("api/v1/status/{id}")
-    fun getStatus(@PathVariable("id") id: Int): ResponseEntity<StatDto> {
+    fun getStatus(@PathVariable("id") id: Long): ResponseEntity<StatDto> {
         val request = requestsRepository.findById(id).orElseThrow {
             throw Exception("Request with id [$id] not found")
         }
@@ -82,7 +82,7 @@ class StreamingController(
         )
     }
 
-    private fun uploadFile(id: Int, videoFile: MultipartFile) {
+    private fun uploadFile(id: Long, videoFile: MultipartFile) {
         val keyName = "$id.mp4"
 
         val createRequest = CreateMultipartUploadRequest.builder()

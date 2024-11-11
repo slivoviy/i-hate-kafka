@@ -1,0 +1,67 @@
+spring:
+  datasource:
+    main:
+      type: com.zaxxer.hikari.HikariDataSource
+      drive-class-name: org.postgresql.Driver
+      hikari:
+        maximum-pool-size: 10
+        minimum-idle: 1
+    url: jdbc:postgresql://localhost:5433/postgres?currentSchema="streaming"
+    username: postgres
+    password: password
+  application:
+    name: api
+  jpa:
+    hibernate:
+      database-platform: org.hibernate.dialect.PostgreSQLDialect
+      ddl-auto: create
+  sql:
+    init:
+      continue-on-error: true
+
+kafka:
+  producer:
+    bootstrap-servers: >-
+      localhost:29092
+  consumer:
+    bootstrap-servers: >-
+      localhost:29092
+  target-topics:
+    Orchestrator-Api:
+      name: slivoviy.orchestrator-api
+      concurrency: 1
+    Orchestrator-Runner:
+      name: slivoviy.orchestrator-runner
+      concurrency: 1
+    Runner-Orchestrator:
+      name: slivoviy.runner-orchestrator
+      concurrency: 1
+    Runner-Inference:
+      name: slivoviy.runner-inference
+      concurrency: 1
+    Inference:
+      name: slivoviy.inference-runner
+      concurrency: 1
+  source-topics:
+    Api:
+      name: slivoviy.orchestrator-api
+      concurrency: 1
+    Orchestrator:
+      name: slivoviy.orchestrator-runner
+      concurrency: 1
+    Runner-Orchestrator:
+      name: slivoviy.runner-orchestrator
+      concurrency: 1
+    Runner-Inference:
+      name: slivoviy.runner-inference
+      concurrency: 1
+    Inference:
+      name: slivoviy.inference-runner
+      concurrency: 1
+
+server:
+  port: 8082
+  servlet:
+    context-path: /
+  tomcat:
+    basedir: /tmp/tomcat

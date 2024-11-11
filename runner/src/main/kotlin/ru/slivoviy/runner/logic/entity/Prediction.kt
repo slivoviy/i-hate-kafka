@@ -2,7 +2,7 @@ package ru.slivoviy.runner.logic.entity
 
 import jakarta.persistence.*
 
-@Table(name = "results")
+@Table(name = "predictions")
 @Entity
 data class Prediction(
 

@@ -30,7 +30,7 @@ class OrchestratorService(
         id = ORCHESTRATOR_LISTENER_ID,
         idIsGroup = false,
         containerFactory = CONSUMER_FACTORY,
-        topics = ["\${kafka.source-topics.API.name}"],
+        topics = ["\${kafka.source-topics.Api.name}"],
         concurrency = "1"
     )
     private fun consumeApi(
@@ -48,7 +48,7 @@ class OrchestratorService(
 
     private fun sendToRunner(record: String) {
         kafkaTemplate.send(
-            kafkaProperties.targetTopics["Runner"]!!.name,
+            kafkaProperties.targetTopics["Runner-Orchestrator"]!!.name,
             record
         )
     }
@@ -57,7 +57,7 @@ class OrchestratorService(
         id = ORCHESTRATOR_LISTENER_ID,
         idIsGroup = false,
         containerFactory = CONSUMER_FACTORY,
-        topics = ["\${kafka.source-topics.Runner.name}"],
+        topics = ["\${kafka.source-topics.Runner-Orchestrator.name}"],
         concurrency = "1"
     )
     private fun consumeRunner(

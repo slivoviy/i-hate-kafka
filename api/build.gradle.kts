@@ -31,6 +31,7 @@ dependencies {
 
     implementation("org.springframework.data:spring-data-jpa:3.3.2")
     implementation("jakarta.persistence:jakarta.persistence-api:3.2.0")
+    implementation("org.postgresql:postgresql")
 
     implementation("software.amazon.awssdk:s3:2.29.9")
     implementation("software.amazon.awssdk:auth:2.29.9")
