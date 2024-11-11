@@ -17,8 +17,8 @@ import ru.slivoviy.api.logic.entity.Request
 import ru.slivoviy.api.logic.enum.Status
 import ru.slivoviy.api.logic.enum.toInt
 import ru.slivoviy.api.logic.enum.toStatus
-import ru.slivoviy.api.logic.repository.RequestsRepository
 import ru.slivoviy.api.logic.repository.PredictionRepository
+import ru.slivoviy.api.logic.repository.RequestsRepository
 import ru.slivoviy.api.rest.dto.StatDto
 import software.amazon.awssdk.core.sync.RequestBody
 import software.amazon.awssdk.services.s3.S3Client
@@ -52,7 +52,7 @@ class StreamingController(
         uploadFile(request.id!!, videoFile)
 
         kafkaTemplate.send(
-            kafkaProperties.targetTopics["API"]!!.name,
+            kafkaProperties.targetTopics["Orchestrator"]!!.name,
             "${request.id}"
         )
 
