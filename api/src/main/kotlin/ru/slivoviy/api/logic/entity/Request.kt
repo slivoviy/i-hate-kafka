@@ -1,9 +1,11 @@
 package ru.slivoviy.api.logic.entity
 
 import jakarta.persistence.*
+import ru.slivoviy.api.internal.annotation.NoArg
 
 @Table(name = "requests")
 @Entity
+@NoArg
 data class Request(
 
     @Id

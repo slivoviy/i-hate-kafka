@@ -1,14 +1,10 @@
 spring:
   datasource:
     main:
-      type: com.zaxxer.hikari.HikariDataSource
-      drive-class-name: org.postgresql.Driver
-      hikari:
-        maximum-pool-size: 10
-        minimum-idle: 1
-    url: jdbc:postgresql://localhost:5433/postgres?currentSchema="streaming"
-    username: postgres
-    password: password
+      url: jdbc:postgresql://localhost:5433/postgres?currentSchema=streaming
+      driver-class-name: org.postgresql.Driver
+      username: user
+      password: password
   application:
     name: api
   jpa:

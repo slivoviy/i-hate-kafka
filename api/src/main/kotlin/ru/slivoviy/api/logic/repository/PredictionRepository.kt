@@ -1,4 +1,4 @@
-package ru.slivoviy.api.logic.repository;
+package ru.slivoviy.api.logic.repository
 
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
