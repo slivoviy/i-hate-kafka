@@ -15,8 +15,8 @@ class S3Configuration {
 
     @Bean
     fun s3Client(): S3Client {
-        val accessKey = "YCAJE8ak1M8ADlLHAelis2ioq"
-        val secretKey = "YCPCd6PHCNG3tnAvViSiV1SPSQ13DVr_boMqvuQO"
+        val accessKey = "lol"
+        val secretKey = "kek"
         val credentials = AwsBasicCredentials.create(accessKey, secretKey)
 
         val regionName = "ru-central1"
