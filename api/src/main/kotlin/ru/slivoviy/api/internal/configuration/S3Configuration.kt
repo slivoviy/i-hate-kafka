@@ -8,15 +8,15 @@ import software.amazon.awssdk.regions.Region
 import software.amazon.awssdk.services.s3.S3Client
 import java.net.URI
 
-const val BUCKET_NAME = "slivoviy.videos"
+const val BUCKET_NAME = "slivoviy-videos"
 
 @Configuration
 class S3Configuration {
 
     @Bean
     fun s3Client(): S3Client {
-        val accessKey = "YCAJEvmlGpNpfPt8SEVuWz1Vu"
-        val secretKey = "YCN2pck0d__TkECL1pM8jY1UPMy9FUM2-0f8rERW"
+        val accessKey = "YCAJE8ak1M8ADlLHAelis2ioq"
+        val secretKey = "YCPCd6PHCNG3tnAvViSiV1SPSQ13DVr_boMqvuQO"
         val credentials = AwsBasicCredentials.create(accessKey, secretKey)
 
         val regionName = "ru-central1"

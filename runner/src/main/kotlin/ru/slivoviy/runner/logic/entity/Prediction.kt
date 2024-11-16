@@ -8,7 +8,7 @@ data class Prediction(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int? = null,
+    val id: Long? = null,
 
     @ManyToOne(cascade = [CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH])
     @JoinColumn(name = "request_id", referencedColumnName = "id", nullable = false)

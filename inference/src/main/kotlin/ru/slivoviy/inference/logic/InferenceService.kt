@@ -2,7 +2,6 @@ package ru.slivoviy.inference.logic
 
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Qualifier
-import org.springframework.data.jpa.domain.AbstractPersistable_
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.support.KafkaHeaders
@@ -48,7 +47,7 @@ class InferenceService(
 
     @KafkaListener(
         id = INFERENCE_LISTENER_ID,
-        idIsGroup = false,
+        groupId = "inference1",
         containerFactory = CONSUMER_FACTORY,
         topics = ["\${kafka.source-topics.Inference.name}"],
         concurrency = "1"

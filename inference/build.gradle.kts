@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm") version "1.9.0"
-    kotlin("plugin.spring") version "1.9.25"
+    kotlin("plugin.spring") version "1.9.0"
+    kotlin("plugin.allopen") version "1.9.0"
     id("org.springframework.boot") version "3.3.5"
     id("io.spring.dependency-management") version "1.1.6"
 }
@@ -27,10 +28,7 @@ dependencies {
     implementation ("io.github.microutils:kotlin-logging-jvm:3.0.5")
     implementation("ch.qos.logback:logback-classic:1.5.6")
 
-    implementation("org.springframework.kafka:spring-kafka:3.1.4")
-
-    implementation("org.springframework.data:spring-data-jpa:3.3.2")
-    implementation("jakarta.persistence:jakarta.persistence-api:3.2.0")
+    implementation("org.springframework.kafka:spring-kafka:3.2.4")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.3.1")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

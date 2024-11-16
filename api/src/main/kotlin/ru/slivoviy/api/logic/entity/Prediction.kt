@@ -1,11 +1,9 @@
 package ru.slivoviy.api.logic.entity
 
 import jakarta.persistence.*
-import ru.slivoviy.api.internal.annotation.NoArg
 
 @Table(name = "predictions")
 @Entity
-@NoArg
 data class Prediction(
 
     @Id

@@ -1,4 +1,8 @@
 spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
   datasource:
     main:
       url: jdbc:postgresql://localhost:5433/postgres?currentSchema=streaming

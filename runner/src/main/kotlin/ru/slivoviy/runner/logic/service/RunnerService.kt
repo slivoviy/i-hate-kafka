@@ -28,7 +28,8 @@ import java.io.FileOutputStream
 
 private val logger = KotlinLogging.logger { }
 
-const val RUNNER_LISTENER_ID = "runner"
+const val RUNNER_ORCHESTRATOR_LISTENER_ID = "runner-orchestrator"
+const val RUNNER_INFERENCE_LISTENER_ID = "runner-inference"
 
 @Service
 class OrchestratorService(
@@ -39,8 +40,8 @@ class OrchestratorService(
 ) {
 
     @KafkaListener(
-        id = RUNNER_LISTENER_ID,
-        idIsGroup = false,
+        id = RUNNER_ORCHESTRATOR_LISTENER_ID,
+        groupId = "runner1",
         containerFactory = CONSUMER_FACTORY,
         topics = ["\${kafka.source-topics.Runner-Orchestrator.name}"],
         concurrency = "1"
@@ -74,7 +75,7 @@ class OrchestratorService(
         var counter = 0
 
         val totalFrames = if(capture.isOpened) capture.get(Videoio.CAP_PROP_FRAME_COUNT) else 0.0
-        requestsRepository.updateTotalFramesById(totalFrames.toInt(), id.toInt())
+        requestsRepository.updateTotalFramesById(totalFrames.toInt(), id.toLong())
 
         while (capture.isOpened) {
 
@@ -96,8 +97,8 @@ class OrchestratorService(
     }
 
     @KafkaListener(
-        id = RUNNER_LISTENER_ID,
-        idIsGroup = false,
+        id = RUNNER_INFERENCE_LISTENER_ID,
+        groupId = "runner2",
         containerFactory = CONSUMER_FACTORY,
         topics = ["\${kafka.source-topics.Runner-Inference.name}"],
         concurrency = "1"
@@ -112,7 +113,7 @@ class OrchestratorService(
 
 //        "request_id;frame_id;counter;total_frames;prediction"
         val data = record.split(';')
-        val requestId = data[0].toInt()
+        val requestId = data[0].toLong()
         val frameId = data[1].toInt()
         val framesDone = data[2].toInt()
         val framesTotal = data[3].toInt()

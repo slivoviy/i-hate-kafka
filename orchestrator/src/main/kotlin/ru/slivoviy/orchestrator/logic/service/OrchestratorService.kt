@@ -17,7 +17,8 @@ import ru.slivoviy.orchestrator.logic.repository.RequestsRepository
 
 private val logger = KotlinLogging.logger { }
 
-const val ORCHESTRATOR_LISTENER_ID = "orchestrator"
+const val ORCHESTRATOR_API_LISTENER_ID = "orchestrator-api"
+const val ORCHESTRATOR_RUNNER_LISTENER_ID = "orchestrator-runner"
 
 @Service
 class OrchestratorService(
@@ -27,8 +28,8 @@ class OrchestratorService(
     ) {
 
     @KafkaListener(
-        id = ORCHESTRATOR_LISTENER_ID,
-        idIsGroup = false,
+        id = ORCHESTRATOR_API_LISTENER_ID,
+        groupId = "orchestrator1",
         containerFactory = CONSUMER_FACTORY,
         topics = ["\${kafka.source-topics.Api.name}"],
         concurrency = "1"
@@ -41,7 +42,7 @@ class OrchestratorService(
     ) {
         logger.debug { "Received message with groupId: [$groupId] partition: [$partition], and offset: [$offset]" }
 
-        requestsRepository.updateStatusById(Status.IN_STARTUP_PROCESSING.toInt(), record.toInt())
+        requestsRepository.updateStatusById(Status.IN_STARTUP_PROCESSING.toInt(), record.toLong())
 
         sendToRunner(record)
     }
@@ -54,8 +55,8 @@ class OrchestratorService(
     }
 
     @KafkaListener(
-        id = ORCHESTRATOR_LISTENER_ID,
-        idIsGroup = false,
+        id = ORCHESTRATOR_RUNNER_LISTENER_ID,
+        groupId = "orchestrator2",
         containerFactory = CONSUMER_FACTORY,
         topics = ["\${kafka.source-topics.Runner-Orchestrator.name}"],
         concurrency = "1"
@@ -69,7 +70,7 @@ class OrchestratorService(
         logger.debug { "Received message with groupId: [$groupId] partition: [$partition], and offset: [$offset]" }
 //        "id status frames_done frames_total"
         val data = record.split(' ')
-        val id = data[0].toInt()
+        val id = data[0].toLong()
         val status = Status.valueOf(data[1])
         val framesDone = data[2].toInt()
         val framesTotal = data[3].toInt()

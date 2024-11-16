@@ -1,11 +1,14 @@
 package ru.slivoviy.api.logic.entity
 
-import jakarta.persistence.*
-import ru.slivoviy.api.internal.annotation.NoArg
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Table
+import jakarta.persistence.Id
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
 
 @Table(name = "requests")
 @Entity
-@NoArg
 data class Request(
 
     @Id

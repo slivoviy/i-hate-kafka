@@ -8,7 +8,7 @@ data class Request(
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int? = null,
+    var id: Long? = null,
 
     @Column(name = "frames_total", nullable = false)
     var framesTotal: Int,
