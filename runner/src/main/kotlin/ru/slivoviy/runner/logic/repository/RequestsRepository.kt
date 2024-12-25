@@ -18,9 +18,8 @@ interface RequestsRepository : JpaRepository<Request, Long> {
 
 
     @Transactional
-    @Modifying
     @Query("UPDATE requests " +
-            "SET framesDone = :framesDone " +
+            "SET frames_done = :framesDone " +
             "WHERE id = :id " +
             "RETURNING *", nativeQuery = true)
     fun updateFramesDoneById(framesDone: Int, id: Long): Request

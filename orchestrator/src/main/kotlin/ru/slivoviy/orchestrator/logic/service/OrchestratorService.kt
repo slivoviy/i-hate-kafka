@@ -31,7 +31,7 @@ class OrchestratorService(
         id = ORCHESTRATOR_API_LISTENER_ID,
         groupId = "orchestrator1",
         containerFactory = CONSUMER_FACTORY,
-        topics = ["\${kafka.source-topics.Api.name}"],
+        topics = ["\${kafka.source-topics.Orchestrator-Api.name}"],
         concurrency = "1"
     )
     private fun consumeApi(
@@ -58,7 +58,7 @@ class OrchestratorService(
         id = ORCHESTRATOR_RUNNER_LISTENER_ID,
         groupId = "orchestrator2",
         containerFactory = CONSUMER_FACTORY,
-        topics = ["\${kafka.source-topics.Runner-Orchestrator.name}"],
+        topics = ["\${kafka.source-topics.Orchestrator-Runner.name}"],
         concurrency = "1"
     )
     private fun consumeRunner(

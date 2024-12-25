@@ -41,6 +41,7 @@ dependencies {
 
     implementation("software.amazon.awssdk:s3:2.29.9")
     implementation("software.amazon.awssdk:auth:2.29.9")
+    implementation("io.minio:minio:8.5.14")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.3.2")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

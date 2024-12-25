@@ -14,7 +14,11 @@ spring:
   jpa:
     hibernate:
       database-platform: org.hibernate.dialect.PostgreSQLDialect
-      ddl-auto: create
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: create-drop
   sql:
     init:
       continue-on-error: true
@@ -29,34 +33,6 @@ kafka:
   target-topics:
     Orchestrator-Api:
       name: slivoviy.orchestrator-api
-      concurrency: 1
-    Orchestrator-Runner:
-      name: slivoviy.orchestrator-runner
-      concurrency: 1
-    Runner-Orchestrator:
-      name: slivoviy.runner-orchestrator
-      concurrency: 1
-    Runner-Inference:
-      name: slivoviy.runner-inference
-      concurrency: 1
-    Inference:
-      name: slivoviy.inference-runner
-      concurrency: 1
-  source-topics:
-    Api:
-      name: slivoviy.orchestrator-api
-      concurrency: 1
-    Orchestrator:
-      name: slivoviy.orchestrator-runner
-      concurrency: 1
-    Runner-Orchestrator:
-      name: slivoviy.runner-orchestrator
-      concurrency: 1
-    Runner-Inference:
-      name: slivoviy.runner-inference
-      concurrency: 1
-    Inference:
-      name: slivoviy.inference-runner
       concurrency: 1
 
 server:

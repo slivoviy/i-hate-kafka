@@ -40,6 +40,8 @@ dependencies {
 
     implementation("software.amazon.awssdk:s3:2.29.9")
     implementation("software.amazon.awssdk:auth:2.29.9")
+    implementation("io.minio:minio:8.5.14")
+
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.8.1")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-debug:1.8.1")

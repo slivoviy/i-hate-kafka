@@ -15,18 +15,15 @@ class S3Configuration {
 
     @Bean
     fun s3Client(): S3Client {
-        val accessKey = "YCAJE8ak1M8ADlLHAelis2ioq"
-        val secretKey = "YCPCd6PHCNG3tnAvViSiV1SPSQ13DVr_boMqvuQO"
+        val accessKey = "minioadmi"
+        val secretKey = "minioadmin"
         val credentials = AwsBasicCredentials.create(accessKey, secretKey)
-
         val regionName = "ru-central1"
-
-//        s3Client.createBucket { request -> request.bucket(BUCKET_NAME) }
 
         return S3Client
             .builder()
             .region(Region.of(regionName))
-            .endpointOverride(URI.create("https://${BUCKET_NAME}.storage.yandexcloud.net"))
+            .endpointOverride(URI("http://127.0.0.1:9000"))
             .credentialsProvider(StaticCredentialsProvider.create(credentials))
             .build()
     }

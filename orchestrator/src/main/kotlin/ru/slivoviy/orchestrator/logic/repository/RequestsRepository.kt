@@ -12,5 +12,5 @@ interface RequestsRepository : JpaRepository<Request, Long> {
     @Transactional
     @Modifying
     @Query("update Request r set r.status = ?1 where r.id = ?2")
-    fun updateStatusById(status: Int, id: Long): Long
+    fun updateStatusById(status: Int, id: Long): Unit
 }

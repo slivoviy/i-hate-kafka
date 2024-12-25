@@ -10,35 +10,11 @@ kafka:
     bootstrap-servers: >-
       localhost:29092
   target-topics:
-    Orchestrator-Api:
-      name: slivoviy.orchestrator-api
-      concurrency: 1
-    Orchestrator-Runner:
-      name: slivoviy.orchestrator-runner
-      concurrency: 1
-    Runner-Orchestrator:
-      name: slivoviy.runner-orchestrator
-      concurrency: 1
     Runner-Inference:
       name: slivoviy.runner-inference
-      concurrency: 1
-    Inference:
-      name: slivoviy.inference-runner
       concurrency: 1
   source-topics:
-    Api:
-      name: slivoviy.orchestrator-api
-      concurrency: 1
-    Orchestrator:
-      name: slivoviy.orchestrator-runner
-      concurrency: 1
-    Runner-Orchestrator:
-      name: slivoviy.runner-orchestrator
-      concurrency: 1
-    Runner-Inference:
-      name: slivoviy.runner-inference
-      concurrency: 1
-    Inference:
+    Inference-Runner:
       name: slivoviy.inference-runner
       concurrency: 1
 

@@ -7,7 +7,6 @@ class KafkaConfigurationProperties (
     val consumer: KafkaConsumerConfigurationProperties,
     val producer: KafkaProducerConfigurationProperties,
     val targetTopics: Map<String, TopicProperties>,
-    val sourceTopics: Map<String, TopicProperties>,
 )
 
 data class KafkaConsumerConfigurationProperties(

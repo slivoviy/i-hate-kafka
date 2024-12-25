@@ -4,10 +4,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import mu.KotlinLogging
-import nu.pattern.OpenCV
-import org.opencv.core.Mat
-import org.opencv.highgui.VideoCapture
-import org.opencv.videoio.Videoio
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.kafka.annotation.KafkaListener
 import org.springframework.kafka.core.KafkaTemplate
@@ -61,6 +57,8 @@ class OrchestratorService(
     }
 
     fun processVideo(id: String) {
+        println("id: $id")
+
         val response = s3Client.getObject { request ->
             request
                 .bucket(BUCKET_NAME)
@@ -68,31 +66,37 @@ class OrchestratorService(
         }
 
         FileOutputStream("$id.mp4").use { fos -> fos.write(response.readAllBytes()) }
-        OpenCV.loadLibrary()
+//        OpenCV.loadLibrary()
+//
+//        val capture = VideoCapture("$id.mp4")
+//        val frame = Mat()
+//        var counter = 0
 
-        val capture = VideoCapture("$id.mp4")
-        val frame = Mat()
-        var counter = 0
+        val totalFrames = (1440..1680).random()
+        requestsRepository.updateTotalFramesById(totalFrames, id.toLong())
 
-        val totalFrames = if(capture.isOpened) capture.get(Videoio.CAP_PROP_FRAME_COUNT) else 0.0
-        requestsRepository.updateTotalFramesById(totalFrames.toInt(), id.toLong())
+        for (i in (0..totalFrames)) {
+            val frameBytes = generateByteArray()
 
-        while (capture.isOpened) {
-
-            val ok = capture.read(frame)
-
-            if(ok) {
-                val size = frame.total() * frame.elemSize()
-                val frameBytes = ByteArray(size = size.toInt())
-                frame.get(0, 0, frameBytes)
-                counter++
-
-                kafkaTemplate.send(
-                    kafkaProperties.targetTopics["Inference"]!!.name,
-                    "$id $counter $totalFrames ${frameBytes.toString(Charsets.UTF_8)}"
-                )
-            }
+            kafkaTemplate.send(
+                kafkaProperties.targetTopics["Inference-Runner"]!!.name,
+                "$id $i $totalFrames ${frameBytes.toString(Charsets.UTF_8)}"
+            )
         }
+
+//        while (capture.isOpened) {
+//
+//            val ok = capture.read(frame)
+//
+//            if(ok) {
+//                val size = frame.total() * frame.elemSize()
+//                val frameBytes = ByteArray(size = size.toInt())
+//                frame.get(0, 0, frameBytes)
+//                counter++
+//
+//
+//            }
+//        }
 
     }
 
@@ -135,3 +139,6 @@ class OrchestratorService(
         )
     }
 }
+
+private fun generateByteArray() =
+    (0..720).map { (0..255).random().toByte() }.toByteArray()

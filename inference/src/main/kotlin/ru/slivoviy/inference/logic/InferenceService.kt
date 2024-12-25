@@ -49,7 +49,7 @@ class InferenceService(
         id = INFERENCE_LISTENER_ID,
         groupId = "inference1",
         containerFactory = CONSUMER_FACTORY,
-        topics = ["\${kafka.source-topics.Inference.name}"],
+        topics = ["\${kafka.source-topics.Inference-Runner.name}"],
         concurrency = "1"
     )
     private fun consumeRunner(
@@ -61,7 +61,7 @@ class InferenceService(
         logger.debug { "Received message with groupId: [$groupId] partition: [$partition], and offset: [$offset]" }
 
 //        "$id $counter $totalFrames ${frameBytes.toString(Charsets.UTF_8)}"
-        val data = record.split(';')
+        val data = record.split(' ')
         val requestId = data[0].toInt()
         val framesDone = data[1].toInt()
         val framesTotal = data[2].toInt()
